@@ -14,7 +14,9 @@ class Model_Based_YOLO(tf.keras.Model):
                                    activation='relu', padding='same', input_shape=(2 * self.grid, 2 * self.grid, 64))
         self.conv3= layers.Conv2D(64, (self.grid + 1, self.grid + 1),
                                    activation='relu', padding='valid', input_shape=(2 * self.grid, 2 * self.grid, 64))
-        self.conv4 = layers.Conv2D(64, (3, 3),
+        self.conv4 = layers.Conv2D(64, (self.grid + 1, self.grid + 1),
+                                   activation='relu', padding='valid', input_shape=(2 * self.grid, 2 * self.grid, 64))
+        self.conv5 = layers.Conv2D(64, (3, 3),
                                    activation='relu', padding='same', input_shape=(self.grid, self.grid, 64))
         self.flatten = layers.Flatten()
 
@@ -26,8 +28,9 @@ class Model_Based_YOLO(tf.keras.Model):
         y = self.conv2(y)
         y = self.conv3(y)
         y = self.conv4(y)
+        y = self.conv5(y)
         y = self.flatten(y)
-        y = self.fc1(x)
-        output = self.fc2(x)
+        y = self.fc1(y)
+        output = self.fc2(y)
         #output = tf.reshape(output, )
         return output

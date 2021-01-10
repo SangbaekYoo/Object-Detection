@@ -23,7 +23,7 @@ class Module():
 
     def predict(self, x):
         input = tf.expand_dims(x, 0)
-        result = self.model(x)
+        result = self.model(input)
         return result
 
 
