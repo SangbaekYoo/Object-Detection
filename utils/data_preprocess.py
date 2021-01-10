@@ -25,7 +25,7 @@ label_data = pd.read_csv(label_data_path)
 data_numpy = label_data.to_numpy()
 
 if __name__ == '__main__':
-    label_lib = np.empty((0, 1))
+    label_lib = np.empty((0, 1), dtype=int)
     #pix_lib = np.empy((0, new_size, new_size, 3))
     numerical_lib = np.empty((0, (grid**2)*5))
 
@@ -59,7 +59,7 @@ if __name__ == '__main__':
     df_num = pd.DataFrame(numerical_lib)
 
     #df_pix.to_csv('./dataset/pix_data.csv')
-    df_num.to_csv(f'{data_path}dataset/label_data.csv')
-    df_num.to_csv(f'{data_path}dataset/num_data.csv')
+    df_label.to_csv(f'{data_path}dataset/label_data.csv', index=False)
+    df_num.to_csv(f'{data_path}dataset/num_data.csv', index=False)
 
 

@@ -5,6 +5,9 @@ import tensorflow as tf
 from tqdm import tqdm
 
 from yolo.model import Model_Based_YOLO
+from utils.image_data_extraction import img_extraction
+
+tf.keras.backend.set_floatx('float64')
 
 class Trainer():
     def __init__(self, batch, dataset):
@@ -34,8 +37,10 @@ class Trainer():
             print('Latest Checkpoint Restored.')
 
     def _train_step(self, input_batch, target_batch):
+        #data call
+        img_batch = img_extraction(input_batch)
         with tf.GradientTape() as tape:
-            y_batch =self.model(input_batch)
+            y_batch =self.model(img_batch)
             loss = self.loss_object(target_batch, y_batch)
         batch_loss = loss // int(target_batch.shape[1])
         variables = self.model.trainable_variables
