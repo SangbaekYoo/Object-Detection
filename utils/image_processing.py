@@ -7,6 +7,10 @@ red = (0, 0, 255)
 white = (255, 255, 255)
 
 def img_processing(src, vector, original=False):
+<<<<<<< HEAD
+=======
+    print("entered")
+>>>>>>> 8ecf968... renewal
     idx_grid_x, idx_grid_y, grid_x, grid_y = 0, 0, 0, 0
     x, y, w, h = 0, 0, 0, 0
     max_c = 0
@@ -34,6 +38,10 @@ def img_processing(src, vector, original=False):
     cv.imshow('object detection', img)
     cv.waitKey(0)
     cv.destroyAllWindows()
+<<<<<<< HEAD
+=======
+    return
+>>>>>>> 8ecf968... renewal
 
 
 

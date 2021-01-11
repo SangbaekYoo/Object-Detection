@@ -25,6 +25,7 @@ label_data = pd.read_csv(label_data_path)
 data_numpy = label_data.to_numpy()
 
 if __name__ == '__main__':
+<<<<<<< HEAD
     label_lib = np.empty((0, 1), dtype=int)
     #pix_lib = np.empy((0, new_size, new_size, 3))
     numerical_lib = np.empty((0, (grid**2)*5))
@@ -35,6 +36,19 @@ if __name__ == '__main__':
         #img = pilimg.open(f'{img_data_dir_path}{img_name}')
         #img = img.resize((new_size, new_size))
         #pix = np.array(img)
+=======
+    data_size = len(data_numpy)
+    label_lib = np.zeros((data_size, 1), dtype=np.int32)
+    pix_lib = np.zeros((data_size, new_size, new_size, 3), dtype=np.float32)
+    numerical_lib = np.zeros((data_size, (grid**2)*5), dtype=np.float32)
+    for idx, element in enumerate(data_numpy):
+        img_label = int(element[0][:-4])
+        img_name = element[0]
+        img = pilimg.open(f'{img_data_dir_path}{img_name}')
+        img = img.resize((new_size, new_size))
+        pix = np.array(img)
+        pix = pix / 255
+>>>>>>> 8ecf968... renewal
         element_preprocess = np.zeros((grid, grid,5))
         numerical_data = element[1].split()
         x, y, w, h = int(numerical_data[0]), int(numerical_data[1]), int(numerical_data[2]), int(numerical_data[3])
@@ -49,6 +63,7 @@ if __name__ == '__main__':
         element_preprocess[x_index][y_index][3] = h / new_size
         element_preprocess[x_index][y_index][4] = 1
         element_preprocess = element_preprocess.reshape((grid**2)*5)
+<<<<<<< HEAD
         #pix_lib = np.append(pix_lib, np.array([pix]), axis=0)
         label_lib = np.append(label_lib, np.array([[img_label]]), axis=0)
         numerical_lib = np.append(numerical_lib, np.array([element_preprocess]), axis=0)
@@ -61,5 +76,16 @@ if __name__ == '__main__':
     #df_pix.to_csv('./dataset/pix_data.csv')
     df_label.to_csv(f'{data_path}dataset/label_data.csv', index=False)
     df_num.to_csv(f'{data_path}dataset/num_data.csv', index=False)
+=======
+        pix_lib[idx] = np.array(pix)
+        label_lib[idx] = np.array(img_label)
+        numerical_lib[idx] = np.array(element_preprocess)
+        print(idx)
+
+    np.savez(f'{data_path}dataset/pix_data', one=pix_lib)
+    np.savez(f'{data_path}dataset/label_data', one=label_lib)
+    np.savez(f'{data_path}dataset/numerical_data', one=numerical_lib)
+
+>>>>>>> 8ecf968... renewal
 
 
